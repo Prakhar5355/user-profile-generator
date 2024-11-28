@@ -16,12 +16,10 @@ const UserProfile: React.FC = () => {
     setError(null);
     try {
       const response = await fetch("https://randomuser.me/api/");
-      console.log(response,"response")
       if (!response.ok) {
         throw new Error("Failed to fetch user data");
       }
       const data = await response.json();
-      console.log(data,"data")
       setUser(data.results[0]);
     } catch (error) {
       setError("Error fetching user data. Please try again later.");
