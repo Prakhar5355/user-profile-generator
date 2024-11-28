@@ -8,41 +8,52 @@ type User = {
 
 const UserProfile: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchUser = async () => {
+    setLoading(true);
+    setError(null);
     try {
       const response = await fetch("https://randomuser.me/api/");
       console.log(response,"response")
+      if (!response.ok) {
+        throw new Error("Failed to fetch user data");
+      }
       const data = await response.json();
       console.log(data,"data")
       setUser(data.results[0]);
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      setError("Error fetching user data. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchUser();
+      fetchUser();
   }, []);
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-28 text-center">
-      {user ? (
-        <div>
-          <img
-            src={user.picture.large}
-            alt="User"
-            className="w-36 h-36 rounded-full mx-auto mb-4"
-          />
-          <h2 className="text-xl font-semibold text-gray-800">{`${user.name.first} ${user.name.last}`}</h2>
-          <p className="text-gray-600">{user.email}</p>
-        </div>
+    <div className="bg-white shadow-lg rounded-lg p-12 w-full max-w-md mx-auto text-center flex flex-col items-center">
+      {loading ? (
+        <p className="text-gray-500 mb-2">Loading...</p>
+      ) : error ? (
+        <div className="text-red-500 mb-4">{error}</div>
       ) : (
-        <p className="text-gray-500">Loading...</p>
+        <div className="flex flex-col items-center">
+          <img
+            src={user?.picture.large}
+            alt="User"
+            className="w-36 h-36 rounded-full mb-4"
+          />
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">{`${user?.name.first} ${user?.name.last}`}</h2>
+          <p className="text-gray-600 mb-4">{user?.email}</p>
+        </div>
       )}
       <button
         onClick={fetchUser}
-        className="mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+        className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
       >
         Fetch New User
       </button>
