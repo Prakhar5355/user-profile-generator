@@ -29,15 +29,15 @@ const UserProfile: React.FC = () => {
   };
 
   useEffect(() => {
-      fetchUser();
+          fetchUser();
   }, []);
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-12 w-full max-w-md mx-auto text-center flex flex-col items-center">
+    <div className="bg-white shadow-lg rounded-lg p-6 sm:p-8 md:p-10 lg:p-12 w-[21rem] sm:w-full sm:max-w-md mx-auto text-center flex flex-col items-center">
       {loading ? (
-        <p className="text-gray-500 mb-2">Loading...</p>
+        <p className="text-gray-500 text-lg mb-2">Loading...</p>
       ) : error ? (
-        <div className="text-red-500 mb-4">{error}</div>
+        <div className="text-red-500 mb-4 text-lg">{error}</div>
       ) : (
         <div className="flex flex-col items-center">
           <img
@@ -45,13 +45,13 @@ const UserProfile: React.FC = () => {
             alt="User"
             className="w-36 h-36 rounded-full mb-4"
           />
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">{`${user?.name.first} ${user?.name.last}`}</h2>
-          <p className="text-gray-600 mb-4">{user?.email}</p>
+          <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-2">{`${user?.name.first} ${user?.name.last}`}</h2>
+          <p className="text-gray-600 mb-4 text-sm sm:text-base">{user?.email}</p>
         </div>
       )}
       <button
         onClick={fetchUser}
-        className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700"
+        className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 transition duration-200 text-sm sm:text-base"
       >
         Fetch New User
       </button>
