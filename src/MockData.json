@@ -1,0 +1,19 @@
+{
+    "results" :[{
+        "gender": "female",
+        "name": {
+            "title": "Miss",
+            "first": "Rosa",
+            "last": "Petersen"
+        },
+        "email": "rosa.petersen@example.com",
+        "picture": {
+            "large": "https://randomuser.me/api/portraits/women/59.jpg",
+            "medium": "https://randomuser.me/api/portraits/med/women/59.jpg",
+            "thumbnail": "https://randomuser.me/api/portraits/thumb/women/59.jpg"
+        },
+        "nat": "DK"
+    }]
+ 
+
+}
